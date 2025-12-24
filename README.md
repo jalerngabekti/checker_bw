@@ -168,3 +168,4 @@ listener.run()  # Starts the polling loop and blocks until interrupted (Ctrl+C)
 
 This mirrors the behavior of `python script.py` and can be adapted for integration into larger systems or testing harnesses.
 ---
+```
