@@ -1,4 +1,5 @@
 ---
+---
 # checker_bw: Cross-Chain Bridge Event Listener Simulator
 
 This repository provides a Python-based simulation of a critical component in a cross-chain bridge architecture: the event listener, also known as a relayer or oracle. This script connects to a source blockchain (like Ethereum or a compatible testnet), listens for specific events from a bridge contract, validates them, and simulates the process of relaying this information to a destination chain.
@@ -114,6 +115,9 @@ RPC_URL="https://sepolia.infura.io/v3/your-infura-project-id"
 
 # Optional: Override the number of block confirmations to wait for.
 # BLOCK_CONFIRMATIONS=15
+
+# Optional: Override the default polling interval in seconds.
+# POLL_INTERVAL_SECONDS=15
 ```
 
 By default, the script is pre-configured to listen for `Deposit` events on the Sepolia WETH contract (`0x7b79995e5f793A07Bc00c21412e50Eaae098E7f9`), which serves as a real-world example of a high-traffic contract emitting events.
@@ -169,4 +173,18 @@ listener.run()  # Starts the polling loop and blocks until interrupted (Ctrl+C)
 ```
 
 This mirrors the behavior of `python script.py` and can be adapted for integration into larger systems or testing harnesses.
+
+### 6. Quick One-Off Run Example
+
+If you want to run a single scan cycle (for example, in a script or notebook) instead of an infinite loop, you can call a non-blocking method if exposed by your implementation:
+
+```python
+from checker_bw.listener import CrossChainEventListener
+
+listener = CrossChainEventListener()
+listener.scan_once()  # Run one scan cycle, then return
+```
+
+This pattern can be useful when embedding the listener into scheduled jobs or test suites.
+---
 ---
