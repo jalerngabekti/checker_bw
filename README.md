@@ -1,4 +1,3 @@
-```
 ---
 # checker_bw: Cross-Chain Bridge Event Listener Simulator
 
@@ -112,6 +111,9 @@ RPC_URL="https://sepolia.infura.io/v3/your-infura-project-id"
 
 # Optional: Override the default bridge contract address.
 # BRIDGE_CONTRACT_ADDRESS="0x..."
+
+# Optional: Override the number of block confirmations to wait for.
+# BLOCK_CONFIRMATIONS=15
 ```
 
 By default, the script is pre-configured to listen for `Deposit` events on the Sepolia WETH contract (`0x7b79995e5f793A07Bc00c21412e50Eaae098E7f9`), which serves as a real-world example of a high-traffic contract emitting events.
@@ -157,7 +159,7 @@ A `listener_state.json` file will be created in the same directory to store the 
 
 ### 5. Minimal Usage Example
 
-Once the listener is running, you can interact with it programmatically (for example, from a Python REPL) by importing the main class and starting it manually:
+Once the listener is running, you can also interact with it programmatically (for example, from a Python REPL) by importing the main class and starting it manually:
 
 ```python
 from checker_bw.listener import CrossChainEventListener
@@ -168,4 +170,3 @@ listener.run()  # Starts the polling loop and blocks until interrupted (Ctrl+C)
 
 This mirrors the behavior of `python script.py` and can be adapted for integration into larger systems or testing harnesses.
 ---
-```
