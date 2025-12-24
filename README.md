@@ -1,3 +1,5 @@
+```
+---
 # checker_bw: Cross-Chain Bridge Event Listener Simulator
 
 This repository provides a Python-based simulation of a critical component in a cross-chain bridge architecture: the event listener, also known as a relayer or oracle. This script connects to a source blockchain (like Ethereum or a compatible testnet), listens for specific events from a bridge contract, validates them, and simulates the process of relaying this information to a destination chain.
@@ -19,15 +21,15 @@ This script simulates the crucial **Step 3**, acting as one of these off-chain l
 
 The script is designed with a clear separation of concerns, implemented through several distinct classes:
 
-- `CrossChainEventListener`: The main orchestrator. It manages the connection to the source chain’s RPC node, handles the main polling loop, and determines which blocks to scan.
+- **`CrossChainEventListener`**: The main orchestrator. It manages the connection to the source chain’s RPC node, handles the main polling loop, and determines which blocks to scan.
 
-- `StateDB`: A simple, file-based persistence layer. It keeps track of the `last_processed_block` and a list of `processed_event_ids`. This ensures that the listener can be stopped and restarted without losing its place or reprocessing the same event, helping to prevent replay attacks.
+- **`StateDB`**: A simple, file-based persistence layer. It keeps track of the `last_processed_block` and a list of `processed_event_ids`. This ensures that the listener can be stopped and restarted without losing its place or reprocessing the same event, helping to prevent replay attacks.
 
-- `EventParser`: A static utility class responsible for decoding raw log data received from the blockchain into a structured, human-readable format. This isolates the logic for decoding raw event data, which can be complex and error-prone.
+- **`EventParser`**: A static utility class responsible for decoding raw log data received from the blockchain into a structured, human-readable format. This isolates the logic for decoding raw event data, which can be complex and error-prone.
 
-- `TransactionProcessor`: This class takes a parsed event and applies the core business logic. It checks if the event has already been processed using the `StateDB` and then coordinates with the `SignatureRelaySimulator` to forward the event.
+- **`TransactionProcessor`**: This class takes a parsed event and applies the core business logic. It checks if the event has already been processed using the `StateDB` and then coordinates with the `SignatureRelaySimulator` to forward the event.
 
-- `SignatureRelaySimulator`: Simulates the final step of a relayer’s duty. It generates a cryptographic signature for the event data (as a real validator would) and sends the event payload and signature to a mock API endpoint, simulating a submission to the destination chain’s relayer network.
+- **`SignatureRelaySimulator`**: Simulates the final step of a relayer’s duty. It generates a cryptographic signature for the event data (as a real validator would) and sends the event payload and signature to a mock API endpoint, simulating a submission to the destination chain’s relayer network.
 
 ### Data Flow Diagram
 
@@ -160,9 +162,9 @@ Once the listener is running, you can interact with it programmatically (for exa
 ```python
 from checker_bw.listener import CrossChainEventListener
 
-if __name__ == "__main__":
-    listener = CrossChainEventListener()
-    listener.run()  # starts the polling loop
+listener = CrossChainEventListener()
+listener.run()  # Starts the polling loop and blocks until interrupted (Ctrl+C)
 ```
 
 This mirrors the behavior of `python script.py` and can be adapted for integration into larger systems or testing harnesses.
+---
